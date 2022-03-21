@@ -1,0 +1,19 @@
+name linter-check
+
+on: push
+jobs:
+  linter
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: 'Node setup'
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+
+      - name: 'Install packages'
+        run: make install
+
+      - name: 'Linter check'
+        run: make lint
