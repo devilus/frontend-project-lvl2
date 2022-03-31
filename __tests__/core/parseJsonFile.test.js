@@ -5,7 +5,8 @@ import { parseJsonFile } from '../../src/core/parseJsonFile.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-const correctPath = join(__dirname, '../..', '__fixtures__', 'file1.json');
+const absolutePath = join(__dirname, '../..', '__fixtures__', 'file1.json');
+const relativePath = join('__fixtures__', 'file1.json');
 const incorrectPath = join(__dirname, '../..', '__fixtures__', 'notFound.json');
 const incorrectFile = join(__dirname, '../..', '__fixtures__', 'file.txt');
 
@@ -17,7 +18,8 @@ const expected = {
 };
 
 test('parseJsonFile', () => {
-  expect(parseJsonFile(correctPath)).toEqual(expected);
+  expect(parseJsonFile(absolutePath)).toEqual(expected);
+  expect(parseJsonFile(relativePath)).toEqual(expected);
 
   expect(() => parseJsonFile(incorrectPath)).toThrow(
     `File ${incorrectPath} not found`
