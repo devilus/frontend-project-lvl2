@@ -1,6 +1,7 @@
 name: tests-check
 
 on: push
+
 jobs:
   tests:
     runs-on: ubuntu-latest
@@ -8,7 +9,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: 'Node setup'
-      - uses: actions/setup-node@v2
+        uses: actions/setup-node@v2
         with:
           node-version: '16.x'
 
