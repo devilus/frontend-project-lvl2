@@ -2,7 +2,7 @@ name: linter-check
 
 on: push
 jobs:
-  linter
+  linter:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
