@@ -6,4 +6,7 @@ extends:
 parserOptions:
   ecmaVersion: 13
   sourceType: module
-rules: { no-console }
+rules:
+  no-console: off
+  import/extensions: [warn, { js: ignorePackages }]
+  no-underscore-dangle: [warn, { allow: ['__filename', '__dirname'] }]
