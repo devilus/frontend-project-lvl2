@@ -1,0 +1,25 @@
+name: codeclimate-check
+
+on: push
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: 'Node setup'
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+
+      - name: 'Install packages'
+        run: make install
+
+      - name: 'Codeclimate tests coverage'
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+        with:
+          coverageCommand: make test-coverage
+          debug: true
