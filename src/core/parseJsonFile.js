@@ -14,4 +14,4 @@ const readFile = (filepath) => {
 
 const parseJsonFile = (filepath) => JSON.parse(readFile(filepath));
 
-export { parseJsonFile };
+export default parseJsonFile;

@@ -1,6 +1,7 @@
+import { test, expect } from '@jest/globals';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import { parseJsonFile } from '../../src/core/parseJsonFile.js';
+import parseJsonFile from '../../src/core/parseJsonFile.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -21,9 +22,7 @@ test('parseJsonFile', () => {
   expect(parseJsonFile(absolutePath)).toEqual(expected);
   expect(parseJsonFile(relativePath)).toEqual(expected);
 
-  expect(() => parseJsonFile(incorrectPath)).toThrow(
-    `File ${incorrectPath} not found`
-  );
+  expect(() => parseJsonFile(incorrectPath)).toThrow(`File ${incorrectPath} not found`);
 
   expect(() => parseJsonFile(incorrectFile)).toThrow(SyntaxError);
 });

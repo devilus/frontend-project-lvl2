@@ -1,4 +1,5 @@
-import { getObjectsDiff } from '../../src/core/getObjectsDiff.js';
+import { test, expect } from '@jest/globals';
+import getObjectsDiff from '../../src/core/getObjectsDiff.js';
 
 const json1 = {
   host: 'hexlet.io',
