@@ -1,7 +1,7 @@
 import { test, expect } from '@jest/globals';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import parseJsonFile from '../../src/core/parsers/parseJsonFile.js';
+import parseJsonFile from '../../../src/core/parsers/parseJsonFile.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

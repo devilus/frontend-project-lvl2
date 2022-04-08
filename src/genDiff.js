@@ -1,5 +1,5 @@
 import getObjectsDiff from './core/getObjectsDiff.js';
-import parseJsonFile from './core/parseJsonFile.js';
+import parseJsonFile from './core/parsers/parseJsonFile.js';
 
 const genDiff = (filepath1, filepath2) => {
   const obj1 = parseJsonFile(filepath1);
