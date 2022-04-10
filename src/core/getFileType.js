@@ -9,7 +9,7 @@ const getFileType = (filepath) => {
   const [, fileExt] = extname(filepath).split('.');
   const fileType = _.findKey(extensions, (extList) => extList.indexOf(fileExt) > 0) || fileExt;
 
-  return fileType;
+  return fileType || null;
 };
 
 export default getFileType;
