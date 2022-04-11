@@ -15,3 +15,7 @@
 ### Asciinema plain JSON compare
 
 https://asciinema.org/a/HIORmgzU1ZWATwf4tSfKlbbcF
+
+### Asciinema plain YAML compare
+
+https://asciinema.org/a/dtBnOoc4Lzx0N3YE7a1J1MxCS
