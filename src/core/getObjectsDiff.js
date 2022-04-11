@@ -15,6 +15,10 @@ const makeNewEntry = (key, value, sign = '') => {
 };
 
 const getObjectsDiff = (obj1, obj2) => {
+  if (_.isEqual(obj1, obj2)) {
+    return ['{', '}'].join(EOL);
+  }
+
   const keys = _.union(Object.keys(obj1), Object.keys(obj2)).sort();
 
   const diff = keys.flatMap((key) => {
@@ -26,8 +30,9 @@ const getObjectsDiff = (obj1, obj2) => {
         : [makeNewEntry(key, value1, MathSign.minus), makeNewEntry(key, value2, MathSign.plus)];
     }
 
-    // eslint-disable-next-line max-len
-    return _.isNil(value1) ? makeNewEntry(key, value2, MathSign.plus) : makeNewEntry(key, value1, MathSign.minus);
+    return _.isNil(value1)
+      ? makeNewEntry(key, value2, MathSign.plus)
+      : makeNewEntry(key, value1, MathSign.minus);
   });
 
   return ['{', ...diff, '}'].join(EOL);
