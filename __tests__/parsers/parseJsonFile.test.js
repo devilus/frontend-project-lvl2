@@ -1,6 +1,6 @@
 import { test, expect } from '@jest/globals';
 import { join } from 'path';
-import parseJsonFile from '../../../src/core/parsers/parseJsonFile.js';
+import parseJsonFile from '../../src/parsers/parseJsonFile.js';
 
 const jsonFile = join('__fixtures__', 'file1.json');
 const incorrectFile = join('__fixtures__', 'file.txt');

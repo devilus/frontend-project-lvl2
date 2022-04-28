@@ -1,6 +1,6 @@
 import { test, expect } from '@jest/globals';
 import { join } from 'path';
-import getFileType from '../../src/core/getFileType';
+import getFileType from '../../src/core/getFileType.js';
 
 test('getFileType', () => {
   expect(getFileType(join('__fixtures__', 'file1.json'))).toBe('json');

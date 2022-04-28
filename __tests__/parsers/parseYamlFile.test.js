@@ -1,6 +1,6 @@
 import { test, expect } from '@jest/globals';
 import { join } from 'path';
-import parseYamlFile from '../../../src/core/parsers/parseYamlFile.js';
+import parseYamlFile from '../../src/parsers/parseYamlFile.js';
 
 const yamlFile = join('__fixtures__', 'file1.yaml');
 
