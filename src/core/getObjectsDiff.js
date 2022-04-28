@@ -1,41 +1,41 @@
 import _ from 'lodash';
-import { EOL } from 'os';
-
-const MathSign = {
-  plus: '+',
-  minus: '-',
-};
-
-const makeNewEntry = (key, value, sign = '') => {
-  const indent = { big: 4, small: 2 };
-  const spacesCount = _.isEmpty(sign) ? indent.big : indent.small;
-  const entry = `${sign} ${key}: ${value}`.trim();
-
-  return ' '.repeat(spacesCount) + entry;
-};
 
 const getObjectsDiff = (obj1, obj2) => {
   if (_.isEqual(obj1, obj2)) {
-    return ['{', '}'].join(EOL);
+    return [];
   }
 
-  const keys = _.union(Object.keys(obj1), Object.keys(obj2)).sort();
+  const keys = _([_.keys(obj1), _.keys(obj2)])
+    .flatten()
+    .union()
+    .sort()
+    .value();
 
-  const diff = keys.flatMap((key) => {
-    const [value1, value2] = [_.get(obj1, key), _.get(obj2, key)];
+  return keys.flatMap((key) => {
+    const [oldValue, newValue] = [_.get(obj1, key), _.get(obj2, key)];
 
-    if (_.has(obj1, key) && _.has(obj2, key)) {
-      return value1 === value2
-        ? makeNewEntry(key, value1)
-        : [makeNewEntry(key, value1, MathSign.minus), makeNewEntry(key, value2, MathSign.plus)];
+    // Recursive diff
+    if (_.isObject(oldValue) && _.isObject(newValue)) {
+      return { key, child: getObjectsDiff(oldValue, newValue) };
     }
 
-    return _.isNil(value1)
-      ? makeNewEntry(key, value2, MathSign.plus)
-      : makeNewEntry(key, value1, MathSign.minus);
-  });
+    // Unchanged values
+    if (oldValue === newValue) {
+      return { key, value: oldValue };
+    }
 
-  return ['{', ...diff, '}'].join(EOL);
+    // Changed values
+    if (!_.isUndefined(oldValue) && !_.isUndefined(newValue)) {
+      return [
+        { key, value: oldValue, del: true },
+        { key, value: newValue, add: true },
+      ];
+    }
+
+    // Removed or added values
+    const state = _.isUndefined(newValue) ? { del: true } : { add: true };
+    return { key, value: oldValue ?? newValue, ...state };
+  });
 };
 
 export default getObjectsDiff;

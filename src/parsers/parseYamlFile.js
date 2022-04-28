@@ -1,5 +1,5 @@
 import { load } from 'js-yaml';
-import readFile from '../readFile.js';
+import readFile from '../core/readFile.js';
 
 const parseYamlFile = (filepath) => load(readFile(filepath));
 
