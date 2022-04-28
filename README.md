@@ -19,3 +19,7 @@ https://asciinema.org/a/HIORmgzU1ZWATwf4tSfKlbbcF
 ### Asciinema plain YAML compare
 
 https://asciinema.org/a/dtBnOoc4Lzx0N3YE7a1J1MxCS
+
+### Asciinema nested compare
+
+https://asciinema.org/a/OuI72z8dgyZlM7gh3Dg9YTVe2
