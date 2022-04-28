@@ -1,5 +1,5 @@
 env:
-  browser: true
+  node: true
   es2021: true
 extends:
   - airbnb-base
@@ -9,4 +9,6 @@ parserOptions:
 rules:
   no-console: off
   import/extensions: [warn, { js: ignorePackages }]
-  no-underscore-dangle: [warn, { allow: ['__filename', '__dirname'] }]
+  no-underscore-dangle: [warn, { allow: ["__filename", "__dirname"] }]
+  implicit-arrow-linebreak: off
+  newline-per-chained-call: off
