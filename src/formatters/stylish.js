@@ -2,23 +2,41 @@ import _ from 'lodash';
 import { EOL } from 'os';
 
 const convertDiff = (diff) =>
-  diff.reduce((convertedDiff, item) => {
-    let state = ' ';
-    if (item.del || item.add) {
-      state = item.del ? '-' : '+';
-    }
+  diff
+    .flatMap((item) => {
+      if (item.upd) {
+        // Expand updated values
+        const { key, oldValue, newValue } = item;
+        return [
+          { key, value: oldValue, del: true },
+          { key, value: newValue, add: true },
+        ];
+      }
 
-    // Key with state
-    const newKey = [state, item.key].join(' ');
+      return item;
+    })
+    .reduce((convertedDiff, item) => {
+      let state = ' ';
+      if (item.del || item.add) {
+        state = item.del ? '-' : '+';
+      }
 
-    // Recursive convert the object of value to add a state to every key (for easier alignment)
-    if (_.isObject(item.value)) {
-      const subValue = _.entries(item.value).map(([key, value]) => ({ key, value }));
-      return { ...convertedDiff, [newKey]: convertDiff(subValue) };
-    }
+      const { key, value, child } = item;
 
-    return { ...convertedDiff, [newKey]: item.child ? convertDiff(item.child) : item.value };
-  }, {});
+      // Key with state
+      const newKey = [state, key].join(' ');
+
+      // Recursive convert the object of value to add a state to every key (for easier alignment)
+      if (_.isObject(value)) {
+        const subValue = _.entries(value).map(([objKey, objVal]) => ({
+          key: objKey,
+          value: objVal,
+        }));
+        return { ...convertedDiff, [newKey]: convertDiff(subValue) };
+      }
+
+      return { ...convertedDiff, [newKey]: item.child ? convertDiff(child) : value };
+    }, {});
 
 const stylish = (diff, replacer = ' ', spacesCount = 2) => {
   if (_.isEmpty(diff)) {

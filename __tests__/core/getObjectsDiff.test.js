@@ -25,13 +25,9 @@ const expectedPlain = [
   },
   {
     key: 'timeout',
-    value: 50,
-    del: true,
-  },
-  {
-    key: 'timeout',
-    value: 20,
-    add: true,
+    oldValue: 50,
+    newValue: 20,
+    upd: true,
   },
   {
     key: 'verbose',
@@ -60,13 +56,9 @@ const expectedNested = [
       },
       {
         key: 'setting3',
-        value: true,
-        del: true,
-      },
-      {
-        key: 'setting3',
-        value: null,
-        add: true,
+        oldValue: true,
+        newValue: null,
+        upd: true,
       },
       {
         key: 'setting4',
@@ -88,13 +80,9 @@ const expectedNested = [
             child: [
               {
                 key: 'wow',
-                value: '',
-                del: true,
-              },
-              {
-                key: 'wow',
-                value: 'so much',
-                add: true,
+                oldValue: '',
+                newValue: 'so much',
+                upd: true,
               },
             ],
           },
@@ -116,13 +104,9 @@ const expectedNested = [
     child: [
       {
         key: 'baz',
-        value: 'bas',
-        del: true,
-      },
-      {
-        key: 'baz',
-        value: 'bars',
-        add: true,
+        oldValue: 'bas',
+        newValue: 'bars',
+        upd: true,
       },
       {
         key: 'foo',
@@ -130,15 +114,11 @@ const expectedNested = [
       },
       {
         key: 'nest',
-        value: {
+        oldValue: {
           key: 'value',
         },
-        del: true,
-      },
-      {
-        key: 'nest',
-        value: 'str',
-        add: true,
+        newValue: 'str',
+        upd: true,
       },
     ],
   },

@@ -16,25 +16,37 @@ const getObjectsDiff = (obj1, obj2) => {
 
     // Recursive diff
     if (_.isObject(oldValue) && _.isObject(newValue)) {
-      return { key, child: getObjectsDiff(oldValue, newValue) };
+      return {
+        key,
+        child: getObjectsDiff(oldValue, newValue),
+      };
     }
 
     // Unchanged values
     if (oldValue === newValue) {
-      return { key, value: oldValue };
+      return {
+        key,
+        value: oldValue,
+      };
     }
 
     // Changed values
     if (!_.isUndefined(oldValue) && !_.isUndefined(newValue)) {
-      return [
-        { key, value: oldValue, del: true },
-        { key, value: newValue, add: true },
-      ];
+      return {
+        key,
+        oldValue,
+        newValue,
+        upd: true,
+      };
     }
 
     // Removed or added values
     const state = _.isUndefined(newValue) ? { del: true } : { add: true };
-    return { key, value: oldValue ?? newValue, ...state };
+    return {
+      key,
+      value: oldValue ?? newValue,
+      ...state,
+    };
   });
 };
 
