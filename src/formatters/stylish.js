@@ -1,6 +1,20 @@
 import _ from 'lodash';
 import { EOL } from 'os';
 
+const getState = (item) => {
+  const preSign = {
+    add: '+',
+    del: '-',
+  };
+
+  const state = _(preSign)
+    .keys()
+    .filter((key) => _.has(item, key))
+    .first();
+
+  return preSign[state] ?? ' ';
+};
+
 const convertDiff = (diff) =>
   diff
     .flatMap((item) => {
@@ -16,12 +30,8 @@ const convertDiff = (diff) =>
       return item;
     })
     .reduce((convertedDiff, item) => {
-      let state = ' ';
-      if (item.del || item.add) {
-        state = item.del ? '-' : '+';
-      }
-
       const { key, value, child } = item;
+      const state = getState(item);
 
       // Key with state
       const newKey = [state, key].join(' ');
@@ -35,7 +45,7 @@ const convertDiff = (diff) =>
         return { ...convertedDiff, [newKey]: convertDiff(subValue) };
       }
 
-      return { ...convertedDiff, [newKey]: item.child ? convertDiff(child) : value };
+      return { ...convertedDiff, [newKey]: child ? convertDiff(child) : value };
     }, {});
 
 const stylish = (diff, replacer = ' ', spacesCount = 2) => {
