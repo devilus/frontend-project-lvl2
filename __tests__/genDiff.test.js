@@ -81,7 +81,7 @@ Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]`;
 
-test('genDiff ', () => {
+test('genDiff', () => {
   expect(genDiff(jsonFile1, jsonFile2, 'stylish')).toBe(expectedPlainStylish);
   expect(genDiff(jsonFileNested1, jsonFileNested2, 'stylish')).toEqual(expectedNestedStylish);
   expect(genDiff(jsonFile1, jsonFile2, 'plain')).toBe(expectedPlainPlain);

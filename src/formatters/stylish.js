@@ -15,38 +15,38 @@ const getState = (item) => {
   return preSign[state] ?? ' ';
 };
 
-const convertDiff = (diff) =>
-  diff
-    .flatMap((item) => {
-      if (item.upd) {
-        // Expand updated values
-        const { key, oldValue, newValue } = item;
-        return [
-          { key, value: oldValue, del: true },
-          { key, value: newValue, add: true },
-        ];
-      }
+// prettier-ignore
+const convertDiff = (diff) => diff
+  .flatMap((item) => {
+    if (item.upd) {
+      // Expand updated values
+      const { key, oldValue, newValue } = item;
+      return [
+        { key, value: oldValue, del: true },
+        { key, value: newValue, add: true },
+      ];
+    }
 
-      return item;
-    })
-    .reduce((convertedDiff, item) => {
-      const { key, value, child } = item;
-      const state = getState(item);
+    return item;
+  })
+  .reduce((convertedDiff, item) => {
+    const { key, value, child } = item;
+    const state = getState(item);
 
-      // Key with state
-      const newKey = [state, key].join(' ');
+    // Key with state
+    const newKey = [state, key].join(' ');
 
-      // Recursive convert the object of value to add a state to every key (for easier alignment)
-      if (_.isObject(value)) {
-        const subValue = _.entries(value).map(([objKey, objVal]) => ({
-          key: objKey,
-          value: objVal,
-        }));
-        return { ...convertedDiff, [newKey]: convertDiff(subValue) };
-      }
+    // Recursive convert the object of value to add a state to every key (for easier alignment)
+    if (_.isObject(value)) {
+      const subValue = _.entries(value).map(([objKey, objVal]) => ({
+        key: objKey,
+        value: objVal,
+      }));
+      return { ...convertedDiff, [newKey]: convertDiff(subValue) };
+    }
 
-      return { ...convertedDiff, [newKey]: child ? convertDiff(child) : value };
-    }, {});
+    return { ...convertedDiff, [newKey]: child ? convertDiff(child) : value };
+  }, {});
 
 const stylish = (diff, replacer = ' ', spacesCount = 2) => {
   if (_.isEmpty(diff)) {

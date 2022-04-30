@@ -8,7 +8,7 @@ const getObjectsDiff = (obj1, obj2) => {
   const keys = _([_.keys(obj1), _.keys(obj2)])
     .flatten()
     .union()
-    .sort()
+    .sortBy()
     .value();
 
   return keys.flatMap((key) => {
