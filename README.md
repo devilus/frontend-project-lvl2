@@ -27,3 +27,7 @@ https://asciinema.org/a/OuI72z8dgyZlM7gh3Dg9YTVe2
 ### Asciinema plain format
 
 https://asciinema.org/a/qp557FA1IL65kSmIRW9DXGPPr
+
+### Asciinema JSON style format
+
+https://asciinema.org/a/4ZoHjqygFTbu4ojHHmEd3EeEk
