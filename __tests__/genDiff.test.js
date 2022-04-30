@@ -64,9 +64,28 @@ const expectedNestedStylish = `{
     }
 }`;
 
+const expectedPlainPlain = `Property 'follow' was removed
+Property 'proxy' was removed
+Property 'timeout' was updated. From 50 to 20
+Property 'verbose' was added with value: true`;
+
+const expectedNestedPlain = `Property 'common.follow' was added with value: false
+Property 'common.setting2' was removed
+Property 'common.setting3' was updated. From true to null
+Property 'common.setting4' was added with value: 'blah blah'
+Property 'common.setting5' was added with value: [complex value]
+Property 'common.setting6.doge.wow' was updated. From '' to 'so much'
+Property 'common.setting6.ops' was added with value: 'vops'
+Property 'group1.baz' was updated. From 'bas' to 'bars'
+Property 'group1.nest' was updated. From [complex value] to 'str'
+Property 'group2' was removed
+Property 'group3' was added with value: [complex value]`;
+
 test('genDiff ', () => {
   expect(genDiff(jsonFile1, jsonFile2, 'stylish')).toBe(expectedPlainStylish);
   expect(genDiff(jsonFileNested1, jsonFileNested2, 'stylish')).toEqual(expectedNestedStylish);
+  expect(genDiff(jsonFile1, jsonFile2, 'plain')).toBe(expectedPlainPlain);
+  expect(genDiff(jsonFileNested1, jsonFileNested2, 'plain')).toEqual(expectedNestedPlain);
   expect(genDiff(jsonFile1, yamlFile1)).toBe('No differences');
   expect(genDiff(jsonFile1, yamlFile2)).toBe(expectedPlainStylish);
   expect(() => genDiff(yamlFile1, incorrectFile)).toThrow();

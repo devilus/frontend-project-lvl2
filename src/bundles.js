@@ -1,6 +1,7 @@
 import parseJsonFile from './parsers/parseJsonFile.js';
 import parseYamlFile from './parsers/parseYamlFile.js';
 import stylish from './formatters/stylish.js';
+import plain from './formatters/plain.js';
 
 export const Parsers = {
   json: parseJsonFile,
@@ -9,4 +10,5 @@ export const Parsers = {
 
 export const Formatters = {
   stylish,
+  plain,
 };
