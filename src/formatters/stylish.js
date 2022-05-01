@@ -34,7 +34,7 @@ const convertDiff = (diff) => diff
     const state = getState(item);
 
     // Key with state
-    const newKey = [state, key].join(' ');
+    const newKey = `${state} ${key}`;
 
     // Recursive convert the object of value to add a state to every key (for easier alignment)
     if (_.isObject(value)) {

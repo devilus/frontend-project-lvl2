@@ -27,14 +27,14 @@ const plain = (diff) => {
       // Make a strings for added/removed values
       if (item.add || item.del) {
         const stateLine = item.del ? 'removed' : `added with value: ${simplify(value)}`;
-        return [...lines, [startLine, stateLine].join(' ')];
+        return [...lines, `${startLine} ${stateLine}`];
       }
 
       // Make a strings for updated values
       if (item.upd) {
         const { oldValue, newValue } = item;
         const stateLine = `updated. From ${simplify(oldValue)} to ${simplify(newValue)}`;
-        return [...lines, [startLine, stateLine].join(' ')];
+        return [...lines, `${startLine} ${stateLine}`];
       }
 
       // Skip unchanged values and just return the previous diff
